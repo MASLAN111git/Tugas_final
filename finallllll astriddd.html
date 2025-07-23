@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil Kampus</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    
+    header {
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.03)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      pointer-events: none;
+    }
+    
+    header h1 {
+      font-size: 3em;
+      margin: 20px 0 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      animation: fadeInUp 1s ease-out;
+    }
+    
+    header p {
+      font-size: 1.2em;
+      opacity: 0.9;
+      animation: fadeInUp 1s 0.3s both;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 30px 0 0;
+      animation: fadeInUp 1s 0.6s both;
+    }
+    
+    nav ul li {
+      display: inline-block;
+      margin: 0 5px;
+    }
+    
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 12px 20px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    nav ul li a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    nav ul li a:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    
+    nav ul li a:hover::before {
+      left: 100%;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    section {
+      background: rgba(255, 255, 255, 0.95);
+      margin: 30px 20px;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.8s ease-out;
+    }
+    
+    section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    section h2 {
+      color: #1e3c72;
+      font-size: 2.2em;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    section h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      border-radius: 2px;
+    }
+    
+    section h3 {
+      color: #2a5298;
+      font-size: 1.4em;
+      margin: 20px 0 10px;
+    }
+    
+    section p, section li {
+      color: #555;
+      font-size: 1.1em;
+      margin-bottom: 15px;
+    }
+    
+    section ul {
+      padding-left: 0;
+    }
+    
+    section ul li {
+      list-style: none;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      padding-left: 25px;
+    }
+    
+    section ul li:before {
+      content: '▶';
+      color: #667eea;
+      position: absolute;
+      left: 0;
+      top: 10px;
+    }
+    
+    .gallery-container {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .gallery-item {
+      width: 250px;
+      height: 180px;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 500;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .gallery-item:hover {
+      transform: scale(1.05) rotate(2deg);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+    
+    form {
+      background: rgba(255,255,255,0.1);
+      padding: 30px;
+      border-radius: 15px;
+      backdrop-filter: blur(5px);
+    }
+    
+    form label {
+      display: block;
+      color: #1e3c72;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 1.1em;
+    }
+    
+    form input, form textarea {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 2px solid #e1e5e9;
+      border-radius: 10px;
+      font-size: 1em;
+      transition: all 0.3s ease;
+      background: rgba(255,255,255,0.9);
+    }
+    
+    form input:focus, form textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 15px rgba(102,126,234,0.3);
+      transform: translateY(-2px);
+    }
+    
+    form input[type="submit"] {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1.1em;
+      padding: 15px 40px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      width: auto;
+      display: inline-block;
+    }
+    
+    form input[type="submit"]:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(102,126,234,0.4);
+      background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    }
+    
+    footer {
+      background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+      color: white;
+      text-align: center;
+      padding: 30px;
+      margin-top: 50px;
+      position: relative;
+    }
+    
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    }
+    
+    .link-highlight {
+      color: #667eea !important;
+      font-weight: 600;
+      text-decoration: none;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .link-highlight:hover {
+      color: #5a67d8 !important;
+    }
+    
+    .link-highlight::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      transition: width 0.3s ease;
+    }
+    
+    .link-highlight:hover::after {
+      width: 100%;
+    }
+    
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.2em;
+      }
+      
+      nav ul li {
+        display: block;
+        margin: 5px 0;
+      }
+      
+      section {
+        margin: 20px 10px;
+        padding: 25px;
+      }
+      
+      .gallery-container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#about">Tentang</a></li>
+        <li><a href="#program">Program Studi</a></li>
+        <li><a href="#news">Berita & Acara</a></li>
+        <li><a href="#gallery">Galeri</a></li>
+        <li><a href="#contact">Kontak</a></li>
+        <li><a href="#admission">Pendaftaran</a></li>
+      </ul>
+    </nav>
+    <h1>Selamat Datang di Kampus ABC</h1>
+    <p>Menjadi kampus unggulan berbasis teknologi dan inovasi</p>
+  </header>
+  
+  <section id="about">
+    <h2>Tentang Kampus</h2>
+    <p>Kampus ABC berdiri sejak 1990, memiliki visi menjadi pusat pendidikan teknologi terdepan di Indonesia. Dipimpin oleh Rektor Dr. Andi dan Dekan-dekan yang kompeten di bidangnya.</p>
+  </section>
+  
+  <section id="program">
+    <h2>Program Studi</h2>
+    <ul>
+      <li>Teknik Informatika - Belajar teknologi software & AI</li>
+      <li>Sistem Informasi - Fokus pada manajemen sistem informasi</li>
+      <li>Teknik Elektro - Mengembangkan sistem kelistrikan modern</li>
+    </ul>
+  </section>
+  
+  <section id="news">
+    <h2>Berita dan Acara</h2>
+    <article>
+      <h3>Dies Natalis ke-35</h3>
+      <p>Dirayakan dengan seminar nasional dan lomba antar fakultas.</p>
+    </article>
+    <article>
+      <h3>Pengabdian Masyarakat</h3>
+      <p>Program pemberdayaan desa oleh mahasiswa dan dosen.</p>
+    </article>
+  </section>
+  
+  <section id="gallery">
+    <h2>Galeri</h2>
+    <div class="gallery-container">
+      <div class="gallery-item">Gedung Kampus</div>
+      <div class="gallery-item">Kegiatan Mahasiswa</div>
+    </div>
+  </section>
+  
+  <section id="contact">
+    <h2>Kontak</h2>
+    <form>
+      <label>Nama:</label>
+      <input type="text" name="nama">
+      <label>Email:</label>
+      <input type="email" name="email">
+      <label>Pesan:</label>
+      <textarea name="pesan" rows="4"></textarea>
+      <input type="submit" value="Kirim">
+    </form>
+  </section>
+  
+  <section id="admission">
+    <h2>Pendaftaran</h2>
+    <p>Calon mahasiswa dapat mendaftar melalui <a href="#" class="link-highlight">formulir online</a> dan mengikuti seleksi sesuai jadwal yang telah ditentukan.</p>
+  </section>
+  
+  <footer>
+    <p>&copy; 2025 Kampus ABC. Proyek Web oleh Mahasiswa Teknik Informatika.</p>
+  </footer>
+  
+  <script>
+    document.querySelector("form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Pesan Anda telah dikirim!");
+    });
+</body>
